@@ -33,7 +33,7 @@ function renderToMenuItemTemplate(el) {
 
     el = resolveCompositeElement(el);
     const { children, ...itemProps } = el.props;
-    const submenu = renderToMenuTemplate(children);
+    const submenu = itemProps.submenu || renderToMenuTemplate(children);
 
     itemProps.click = itemProps.onClick;
     delete itemProps.onClick;
