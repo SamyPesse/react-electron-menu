@@ -13,7 +13,7 @@ $ npm install react-electron-menu --save
 
 ### Usage
 
-This module provides 3 types of menu: `WindowMenu`, `ContextMenu` and `AppMenu`.
+This module provides 3 types of menu: `WindowMenu`, `PopupMenu` and `ContextMenu`.
 
 ##### `WindowMenu`
 
@@ -23,15 +23,36 @@ This menu type is displayed only for the currently focused window.
 const React = require('react');
 const { render } = require('react-dom');
 const { WindowMenu, MenuItem } = require('react-electron-menu');
-const { remote } = require('electron');
+const electron = require('electron');
 
 render(
-    <Provider electron={remote}>
+    <Provider electron={electron}>
         <WindowMenu>
             <MenuItem label="File">
                 <MenuItem label="Open ..." onClick={...} />
             </MenuItem>
         </WindowMenu>
+    </Provider>,
+    document.body
+)
+```
+
+
+##### `PopupMenu`
+
+This menu is shown on screen at `x` and `y`.
+
+```js
+const React = require('react');
+const { render } = require('react-dom');
+const { PopupMenu, MenuItem } = require('react-electron-menu');
+const electron = require('electron');
+
+render(
+    <Provider electron={electron}>
+        <PopupMenu x={200} y={100}>
+            <MenuItem label="Open ..." onClick={...} />
+        </PopupMenu>
     </Provider>,
     document.body
 )

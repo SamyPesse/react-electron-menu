@@ -20,6 +20,25 @@ class WindowMenu extends Menu {
         this.onMenuUpdated();
     }
 
+    componentWillUnmount() {
+        const { electron } = this.context;
+        const win = electron.remote.getCurrentWindow();
+
+        if (win) {
+            this.clearListeners(win);
+            if (win.isFocused()) this.onBlur();
+        }
+    }
+
+    /**
+     * Clear listener for a window.
+     * @param {Window} win
+     */
+    clearListeners(win) {
+        win.removeListener('focus', this.onFocus);
+        win.removeListener('blur', this.onBlur);
+    }
+
     /**
      * Update the menu for the window.
      */
@@ -31,8 +50,7 @@ class WindowMenu extends Menu {
             return;
         }
 
-        win.removeListener('focus', this.onFocus);
-        win.removeListener('blur', this.onBlur);
+        this.clearListeners(win);
 
         win.on('focus', this.onFocus);
         win.on('blur', this.onBlur);

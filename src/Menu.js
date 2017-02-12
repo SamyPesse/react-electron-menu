@@ -1,5 +1,4 @@
 const React = require('react');
-const MenuItem = require('./MenuItem');
 const { renderToMenu } = require('./render');
 
 /**
@@ -10,6 +9,7 @@ class Menu extends React.Component {
 
     /**
      * Get current menu.
+     * @return {Menu}
      */
     getMenu() {
         const { electron } = this.context;
@@ -20,12 +20,8 @@ class Menu extends React.Component {
     }
 
     render() {
-        const { children } = this.props;
-
         return (
-            <div className="Electron-Menu">
-                {children}
-            </div>
+            null
         );
     }
 }
