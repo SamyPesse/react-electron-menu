@@ -13,7 +13,7 @@ $ npm install react-electron-menu --save
 
 ### Usage
 
-This module provides 3 types of menu: `WindowMenu`, `PopupMenu` and `ContextMenu`.
+This module provides 2 types of menu: `WindowMenu` and `PopupMenu`.
 
 ##### `WindowMenu`
 
