@@ -57,3 +57,22 @@ render(
     document.body
 )
 ```
+
+##### Default Menus
+
+This module also provides helper to replicate default system's menus:
+
+```js
+const { DefaultEditMenu, MenuItem } = require('react-electron-menu');
+
+// Menu file (app menu on Mac): includes window controls
+<DefaultFileMenu>
+    <MenuItem label="Check for updates..." />
+</DefaultFileMenu>
+
+// Menu edit: includes undo, redo, cut, copy, paste, select all
+<DefaultEditMenu>
+    <MenuItem.Separator />
+    <MenuItem label="Entry at the bottom" />
+</DefaultEditMenu>
+```
