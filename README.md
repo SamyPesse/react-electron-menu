@@ -29,9 +29,7 @@ render(
     <Provider electron={remote}>
         <WindowMenu>
             <MenuItem label="File">
-                <Menu>
-                    <MenuItem label="Open ..." onClick={...} />
-                </Menu>
+                <MenuItem label="Open ..." onClick={...} />
             </MenuItem>
         </WindowMenu>
     </Provider>,

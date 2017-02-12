@@ -1,7 +1,11 @@
 const React = require('react');
 
 const TYPES = {
-    SEPARATOR: 'separator'
+    NORMAL:    'normal',
+    RADIO:     'radio',
+    CHECKBOX:  'checkbox',
+    SEPARATOR: 'separator',
+    SUBMENU:   'submenu'
 };
 
 /**
@@ -9,28 +13,27 @@ const TYPES = {
  * @type {ReactClass}
  */
 class MenuItem extends React.Component {
-    constructor(props, context) {
-        super(props);
-        const { electron } = context;
-
-        this.menuItem = new electron.remote.MenuItem();
-    }
-
     render() {
+        const { children } = this.props;
+
         return (
             <div className="Electron-MenuItem">
-
+                {children}
             </div>
         );
     }
 }
 
 MenuItem.propTypes = {
-    label:    React.PropTypes.string,
-    role:     React.PropTypes.string,
-    type:     React.PropTypes.string,
-    onClick:  React.PropTypes.func,
-    children: React.PropTypes.node
+    label:       React.PropTypes.string,
+    role:        React.PropTypes.string,
+    type:        React.PropTypes.string,
+    accelerator: React.PropTypes.string,
+    icon:        React.PropTypes.string,
+    checked:     React.PropTypes.bool,
+    enabled:     React.PropTypes.bool,
+    onClick:     React.PropTypes.func,
+    children:    React.PropTypes.node
 };
 
 MenuItem.contextTypes = {

@@ -1,25 +1,26 @@
 const React = require('react');
+const MenuItem = require('./MenuItem');
+const { renderToMenu } = require('./render');
 
 /**
  * Component to render a menu.
  * @type {ReactClass}
  */
 class Menu extends React.Component {
-    constructor(props, context) {
-        super(props);
-        const { electron } = context;
 
-        this.menu = new electron.remote.Menu();
+    /**
+     * Get current menu.
+     */
+    getMenu() {
+        const { electron } = this.context;
+        const { children } = this.props;
+        this.menu = renderToMenu(children, electron);
+
+        return this.menu;
     }
 
     render() {
         const { children } = this.props;
-
-        this.menu.items = React.Children.forEach(children, (child) => {
-            console.log(child);
-            return child.menuItem;
-        }) || [];
-
 
         return (
             <div className="Electron-Menu">

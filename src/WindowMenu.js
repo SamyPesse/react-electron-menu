@@ -6,26 +6,63 @@ const Menu = require('./Menu');
  */
 class WindowMenu extends Menu {
     constructor(props, context) {
-        super(props);
-        const { electron } = context;
+        super(props, context);
 
+        this.onFocus = this.onFocus.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+    }
+
+    componentDidMount() {
+        this.onMenuUpdated();
+    }
+
+    componentDidUpdate() {
+        this.onMenuUpdated();
+    }
+
+    /**
+     * Update the menu for the window.
+     */
+    onMenuUpdated() {
+        const { electron } = this.context;
         const win = electron.remote.getCurrentWindow();
 
         if (!win) {
             return;
         }
 
-        win.on('focus', () => {
-            electron.remote.Menu.setApplicationMenu(this.menu);
-        });
+        win.removeListener('focus', this.onFocus);
+        win.removeListener('blur', this.onBlur);
 
-        win.on('blur', () => {
-            const currentMenu = electron.remote.Menu.getApplicationMenu();
-            if (currentMenu == this.menu) {
-                electron.remote.Menu.setApplicationMenu(null);
-            }
-        });
+        win.on('focus', this.onFocus);
+        win.on('blur', this.onBlur);
+
+        if (win.isFocused()) {
+            this.onFocus();
+        }
+    }
+
+    /**
+     * When window is focused.
+     */
+    onFocus() {
+        const { electron } = this.context;
+        const menu = this.getMenu();
+
+        electron.remote.Menu.setApplicationMenu(menu);
+    }
+
+    /**
+     * When window is focused.
+     */
+    onBlur() {
+        const { electron } = this.context;
+        const currentMenu = electron.remote.Menu.getApplicationMenu();
+
+        electron.remote.Menu.setApplicationMenu(null);
     }
 }
+
+WindowMenu.contextTypes = Menu.contextTypes;
 
 module.exports = WindowMenu;

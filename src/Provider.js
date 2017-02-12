@@ -21,7 +21,7 @@ class Provider extends React.Component {
         return {
             electron
         };
-    },
+    }
 
     render() {
         const { children } = this.props;
@@ -39,8 +39,7 @@ Provider.defaultProps = {
 };
 
 Provider.childContextTypes = {
-    Menu:     React.PropTypes.func,
-    MenuItem: React.PropTypes.func
+    electron: React.PropTypes.object.isRequired
 };
 
 module.exports = Provider;
