@@ -1,0 +1,29 @@
+{
+  "name": "react-electron-menu",
+  "version": "0.0.0",
+  "main": "lib/index.js",
+  "author": "Samy Pesse <samypesse@gmailk.com>",
+  "description": "React API to create menu for electron",
+  "bugs": "https://github.com/SamyPesse/react-electron-menu/issues",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "react": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "eslint": "^3.1.1",
+    "eslint-config-gitbook": "^1.5.0"
+  },
+  "scripts": {
+    "prepublish": "babel ./src --out-dir ./lib",
+    "lint": "eslint ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SamyPesse/react-electron-menu.git"
+  }
+}
