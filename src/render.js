@@ -17,7 +17,6 @@ function renderToMenu(children, electron) {
     const { Menu } = electron.remote;
     const template =  renderToMenuTemplate(children, electron) || [];
 
-    console.log(template);
     return Menu.buildFromTemplate(template);
 }
 
@@ -28,6 +27,10 @@ function renderToMenu(children, electron) {
  * @return {MenuItem} menuItem
  */
 function renderToMenuItemTemplate(el) {
+    if (!el) {
+        return null;
+    }
+
     el = resolveCompositeElement(el);
     const { children, ...itemProps } = el.props;
     const submenu = renderToMenuTemplate(children);
@@ -48,9 +51,11 @@ function renderToMenuItemTemplate(el) {
  * @return {Array<MenuItem>} menu
  */
 function renderToMenuTemplate(children) {
-    const items =  React.Children.map(children, el => renderToMenuItemTemplate(el));
+    const items =  (React.Children
+        .map(children, el => renderToMenuItemTemplate(el)) || [])
+        .filter(x => Boolean(x));
 
-    if (!items) {
+    if (items.length == 0) {
         return undefined;
     }
 
