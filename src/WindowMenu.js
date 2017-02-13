@@ -55,7 +55,7 @@ class WindowMenu extends Menu {
         win.on('focus', this.onFocus);
         win.on('blur', this.onBlur);
 
-        if (win.isFocused()) {
+        if (win.isFocused() || document.hasFocus()) {
             this.onFocus();
         }
     }
@@ -77,7 +77,9 @@ class WindowMenu extends Menu {
         const { electron } = this.context;
         const currentMenu = electron.remote.Menu.getApplicationMenu();
 
-        electron.remote.Menu.setApplicationMenu(null);
+        if (currentMenu == this.menu) {
+            electron.remote.Menu.setApplicationMenu(null);
+        }
     }
 }
 

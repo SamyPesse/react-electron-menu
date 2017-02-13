@@ -5,38 +5,45 @@ const MenuItem = require('./MenuItem');
  * Default edit menu for the application.
  * @type {ReactClass}
  */
-class DefaultEditMenu extends React.Component {
+const DefaultEditMenu = React.createClass({
+    propTypes: {
+        children: React.PropTypes.node
+    },
+
+    contextTypes: {
+        electron: React.PropTypes.object.isRequired
+    },
 
     getWindow() {
         const { electron } = this.context;
         return electron.remote.getCurrentWindow();
-    }
+    },
 
     onUndo() {
         this.getWindow().webContents.undo();
-    }
+    },
 
     onRedo() {
         this.getWindow().webContents.redo();
-    }
+    },
 
     onCut() {
         this.getWindow().webContents.cut();
-    }
+    },
 
     onCopy() {
         this.getWindow().webContents.copy();
-    }
+    },
 
     onSelectAll() {
         this.getWindow().webContents.selectAll();
-    }
+    },
 
     render() {
         const { children } = this.props;
 
         return (
-            <MenuItem>
+            <MenuItem id="edit" label="Edit">
                 <MenuItem
                     label="Undo"
                     accelerator="CmdOrCtrl+Z"
@@ -72,14 +79,6 @@ class DefaultEditMenu extends React.Component {
             </MenuItem>
         );
     }
-}
-
-DefaultEditMenu.propTypes = {
-    children: React.PropTypes.node
-};
-
-DefaultEditMenu.contextTypes = {
-    electron: React.PropTypes.object.isRequired
-};
+});
 
 module.exports = DefaultEditMenu;

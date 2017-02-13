@@ -1,65 +1,64 @@
+/*
+    The method of using react-test-renderer is really bad,
+    but I don't know another one.
+ */
 const React = require('react');
-
-function resolveCompositeElement(el) {
-    if (typeof el.type === 'function') {
-        return resolveCompositeElement(new el.type(el.props));
-    }
-    return el;
-}
+const ReactTestRenderer = require('react-test-renderer');
+const Provider = require('./Provider');
 
 /**
  * Render a set of react children to a menu
- * @param  {ReactChildren} children
+ * @param  {ReactElement} el
  * @param  {Object} electron
  * @return {Menu} menu?
  */
-function renderToMenu(children, electron) {
+function renderToMenu(el, electron) {
     const { Menu } = electron.remote;
-    const template =  renderToMenuTemplate(children, electron) || [];
+
+    const renderer = ReactTestRenderer.create(
+        <Provider electron={electron}>
+            {el}
+        </Provider>
+    );
+    const json = renderer.toJSON();
+
+    const children = json.children;
+    const template =  jsonToMenu(children);
+
+    console.log('template', template);
 
     return Menu.buildFromTemplate(template);
 }
 
 /**
- * Render a react element to a menu item.
- * @param  {ReactElement} el
- * @param  {Object} electron
- * @return {MenuItem} menuItem
+ * Convert an array of json from ReactTestRenderer into a menu template
+ * @param {JSON} json
+ * @return {Object} menuItem?
  */
-function renderToMenuItemTemplate(el) {
-    if (!el) {
-        return null;
-    }
-
-    el = resolveCompositeElement(el);
-    const { children, ...itemProps } = el.props;
-    const submenu = itemProps.submenu || renderToMenuTemplate(children);
-
-    itemProps.click = itemProps.onClick;
-    delete itemProps.onClick;
-
-    return {
-        ...itemProps,
-        submenu
-    };
+function jsonToMenu(json) {
+    return json
+        .map(o => jsonToMenuItem(o))
+        .filter(o => Boolean(o));
 }
 
 /**
- * Render a set of react children to an array of menu items
- * @param  {ReactChildren} children
- * @param  {Object} electron
- * @return {Array<MenuItem>} menu
+ * Convert a json from ReactTestRenderer into a menu item template.
+ * @param {JSON} json
+ * @return {Object} menuItem?
  */
-function renderToMenuTemplate(children) {
-    const items =  (React.Children
-        .map(children, el => renderToMenuItemTemplate(el)) || [])
-        .filter(x => Boolean(x));
-
-    if (items.length == 0) {
-        return undefined;
+function jsonToMenuItem(json) {
+    if (json.type != 'menu-item') {
+        return null;
     }
 
-    return items;
+    const item = json.props;
+
+    item.click = item.onClick;
+    delete item.onClick;
+
+    item.submenu = item.submenu || (json.children ? jsonToMenu(json.children) : undefined);
+
+    return item;
 }
 
 module.exports = {

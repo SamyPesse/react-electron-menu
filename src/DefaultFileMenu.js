@@ -5,16 +5,26 @@ const MenuItem = require('./MenuItem');
  * Default file menu for the application.
  * @type {ReactClass}
  */
-class DefaultFileMenu extends React.Component {
+const DefaultFileMenu = React.createClass({
+    propTypes: {
+        appName:  React.PropTypes.string.isRequired,
+        onAbout:  React.PropTypes.func.isRequired,
+        children: React.PropTypes.node
+    },
+
+    contextTypes: {
+        electron: React.PropTypes.object.isRequired
+    },
+
     onOpenDevTools() {
         const { electron } = this.context;
         electron.remote.getCurrentWindow().toggleDevTools();
-    }
+    },
 
     onHide() {
         const { electron } = this.context;
         electron.remote.getCurrentWindow().hide();
-    }
+    },
 
     render() {
         const { appName, children, onAbout } = this.props;
@@ -23,7 +33,7 @@ class DefaultFileMenu extends React.Component {
         const isMac = (os.platform() == 'darwin');
 
         return (
-            <MenuItem id="file" label="File">
+            <MenuItem id="file" label={appName}>
                 <MenuItem
                     label={`About ${appName}`}
                     selector="orderFrontStandardAboutPanel"
@@ -57,20 +67,9 @@ class DefaultFileMenu extends React.Component {
                     accelerator="CmdOrCtrl+Q"
                     role="quit"
                     />
-                {children}
             </MenuItem>
         );
     }
-}
-
-DefaultFileMenu.propTypes = {
-    appName:  React.PropTypes.string.isRequired,
-    onAbout:  React.PropTypes.func.isRequired,
-    children: React.PropTypes.node
-};
-
-DefaultFileMenu.contextTypes = {
-    electron: React.PropTypes.object.isRequired
-};
+});
 
 module.exports = DefaultFileMenu;

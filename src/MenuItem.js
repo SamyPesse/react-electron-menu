@@ -14,8 +14,9 @@ const TYPES = {
  */
 class MenuItem extends React.Component {
     render() {
+        const { children, ...props } = this.props;
         return (
-            null
+            <menu-item {...props}>{children}</menu-item>
         );
     }
 }

@@ -14,15 +14,13 @@ class Menu extends React.Component {
     getMenu() {
         const { electron } = this.context;
         const { children } = this.props;
-        this.menu = renderToMenu(children, electron);
+        this.menu = renderToMenu(<div>{children}</div>, electron);
 
         return this.menu;
     }
 
     render() {
-        return (
-            null
-        );
+        return null;
     }
 }
 
