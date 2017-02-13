@@ -4,6 +4,7 @@ const PopupMenu = require('./PopupMenu');
 const Provider = require('./Provider');
 const DefaultFileMenu = require('./DefaultFileMenu');
 const DefaultEditMenu = require('./DefaultEditMenu');
+const DefaultWindowMenu = require('./DefaultWindowMenu');
 
 module.exports = {
     Provider,
@@ -13,5 +14,6 @@ module.exports = {
     PopupMenu,
     // Default menus
     DefaultFileMenu,
-    DefaultEditMenu
+    DefaultEditMenu,
+    DefaultWindowMenu
 };

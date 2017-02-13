@@ -63,7 +63,7 @@ render(
 This module also provides helper to replicate default system's menus:
 
 ```js
-const { DefaultEditMenu, MenuItem } = require('react-electron-menu');
+const { DefaultEditMenu, DefaultFileMenu, DefaultWindowMenu, MenuItem } = require('react-electron-menu');
 
 // Menu file (app menu on Mac): includes window controls
 <DefaultFileMenu>
@@ -75,4 +75,10 @@ const { DefaultEditMenu, MenuItem } = require('react-electron-menu');
     <MenuItem.Separator />
     <MenuItem label="Entry at the bottom" />
 </DefaultEditMenu>
+
+// Menu view: includes minimize, close, Bring All to Front
+<DefaultWindowMenu>
+    <MenuItem.Separator />
+    <MenuItem label="Toggle an app view" />
+</DefaultWindowMenu>
 ```
