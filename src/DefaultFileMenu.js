@@ -38,6 +38,7 @@ const DefaultFileMenu = React.createClass({
                     label={`About ${appName}`}
                     selector="orderFrontStandardAboutPanel"
                     onClick={onAbout}
+                    role="about"
                     />
                 {children}
                 <MenuItem
