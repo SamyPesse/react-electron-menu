@@ -25,8 +25,6 @@ function renderToMenu(el, electron) {
     const children = json.children;
     const template =  jsonToMenu(children);
 
-    console.log('template', template);
-
     return Menu.buildFromTemplate(template);
 }
 
