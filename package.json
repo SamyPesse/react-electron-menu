@@ -1,6 +1,6 @@
 {
   "name": "react-electron-menu",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "lib/index.js",
   "author": "Samy Pesse <samypesse@gmailk.com>",
   "description": "React API to create menu for electron",
