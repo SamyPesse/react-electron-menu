@@ -14,15 +14,6 @@ const DefaultWindowMenu = React.createClass({
         electron: React.PropTypes.object.isRequired
     },
 
-    getWindow() {
-        const { electron } = this.context;
-        return electron.remote.getCurrentWindow();
-    },
-
-    onMinimize() {
-        this.getWindow().minimize();
-    },
-
     render() {
         const { children } = this.props;
         const { electron } = this.context;
@@ -31,11 +22,7 @@ const DefaultWindowMenu = React.createClass({
 
         return (
             <MenuItem id="window" label="Window">
-                <MenuItem
-                    label="Minimize"
-                    accelerator="CmdOrCtrl+M"
-                    onClick={this.onMinimize}
-                    />
+                <MenuItem role="minimize" />
                 {children}
                 {isMac ? <MenuItem.Separator /> : null}
                 {isMac ? <MenuItem
