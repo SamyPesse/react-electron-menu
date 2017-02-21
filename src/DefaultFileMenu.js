@@ -16,11 +16,6 @@ const DefaultFileMenu = React.createClass({
         electron: React.PropTypes.object.isRequired
     },
 
-    onHide() {
-        const { electron } = this.context;
-        electron.remote.getCurrentWindow().hide();
-    },
-
     render() {
         const { appName, children, onAbout } = this.props;
         const { electron } = this.context;
@@ -39,20 +34,11 @@ const DefaultFileMenu = React.createClass({
                 <MenuItem role="toggledevtools" />
                 {isMac ? <MenuItem.Separator /> : null}
                 {isMac ? <MenuItem label="Services" submenu={[]} /> : null}
-                {isMac ? <MenuItem
-                    label={`Hide ${appName}`}
-                    accelerator="CmdOrCtrl"
-                    onClick={this.onHide}
-                    /> : null}
-                {isMac ? <MenuItem
-                    label="Hide Others"
-                    accelerator="CmdOrCtrl+Shift+H"
-                    selector="hideOtherApplications"
-                    /> : null}
-                {isMac ? <MenuItem
-                    label="Show All"
-                    selector="unhideAllApplications"
-                    /> : null}
+                {isMac ? <MenuItem.Separator /> : null}
+                {isMac ? <MenuItem role="close"/> : null}
+                {isMac ? <MenuItem role="hide" /> : null}
+                {isMac ? <MenuItem role="hideothers"/> : null}
+                {isMac ? <MenuItem role="unhide"/> : null}
                 {isMac ? <MenuItem.Separator /> : null}
                 <MenuItem role="quit" />
             </MenuItem>

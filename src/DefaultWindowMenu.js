@@ -21,14 +21,11 @@ const DefaultWindowMenu = React.createClass({
         const isMac = (os.platform() == 'darwin');
 
         return (
-            <MenuItem id="window" label="Window">
+            <MenuItem role="window">
                 <MenuItem role="minimize" />
                 {children}
                 {isMac ? <MenuItem.Separator /> : null}
-                {isMac ? <MenuItem
-                    label="Bring All to Front"
-                    selector="arrangeInFront"
-                    /> : null}
+                {isMac ? <MenuItem role="front" /> : null}
             </MenuItem>
         );
     }
